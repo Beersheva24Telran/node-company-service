@@ -9,9 +9,40 @@ import {readFile,writeFile} from 'node:fs/promises'
 export default class Company {
   #employees; //key - id, value - Employee {id:123, empl: {123,...}}
   #departments; //key department, value array of employees working in the department
-  constructor() {
+  #predicate;
+  constructor(predicate) {
     this.#employees = {};
     this.#departments = {};
+    this.setPredicate(predicate);
+    this.#setIterable();
+
+  }
+  #setIterable() {
+        
+        this[Symbol.iterator] = function* () {
+            const values = Object.values(this.#employees);
+            let indexCur = -1;
+
+            while(true) {
+                const {index, value} = this.#getNext(indexCur, values);
+                if(!value) {
+                    break;
+                }
+                yield value;
+                indexCur = index;
+            }
+        }
+  }
+  #getNext(index, values) {
+    let value;
+    index++;
+   while((value = values[index]) && !this.#predicate(value)) {
+    index++;
+   }
+   return {index, value};
+  }
+  setPredicate(predicate) {
+    this.#predicate = predicate ?? (e => true);
   }
   async addEmployee(employee) {
     if (!(employee instanceof Employee)) {
