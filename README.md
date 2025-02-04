@@ -3,3 +3,4 @@
 ### allows setting a predicate
 ### if predicate has not been set, all objects should be iterated
 ### based on generator function
+# Tests
