@@ -19,7 +19,7 @@ export default class Company {
   }
   #setIterable() {
         
-        this[Symbol.iterator] = function* () {
+        this[Symbol.asyncIterator] = async function* () {
             const values = Object.values(this.#employees);
             let indexCur = -1;
 
