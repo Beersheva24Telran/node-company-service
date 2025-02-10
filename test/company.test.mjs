@@ -3,7 +3,7 @@ import Employee from "../src/dto/Employee.mjs";
 import WageEmployee from "../src/dto/WageEmployee.mjs";
 import SalesPerson from "../src/dto/SalesPerson.mjs";
 import Manager from "../src/dto/Manager.mjs";
-import Company from "../src/service/Company.mjs";
+import Company from "../src/service/Service.mjs";
 import { EMPLOYEE_ALREADY_EXISTS, EMPLOYEE_NOT_FOUND, INVALID_EMPLOYEE_TYPE } from "../src/exceptions/exceptions.mjs";
 const ID1 = 123;
 const SALARY1 = 1000;

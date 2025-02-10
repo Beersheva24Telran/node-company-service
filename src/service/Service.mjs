@@ -6,7 +6,7 @@ import {
   INVALID_EMPLOYEE_TYPE,
 } from "../exceptions/exceptions.mjs";
 import {readFile,writeFile} from 'node:fs/promises'
-export default class Company {
+ class Company {
   #employees; //key - id, value - Employee {id:123, empl: {123,...}}
   #departments; //key department, value array of employees working in the department
   #predicate;
@@ -115,8 +115,15 @@ export default class Company {
   }
 
   async restoreFromFile(fileName) {
-    const employeesPlain = JSON.parse(await readFile(fileName, 'utf8'));
-    const employees = employeesPlain.map(e => Employee.fromPlainObject(e));
-    employees.forEach(e => this.addEmployee(e));
+    try {
+      const employeesPlain = JSON.parse(await readFile(fileName, 'utf8'));
+      const employees = employeesPlain.map(e => Employee.fromPlainObject(e));
+      employees.forEach(e => this.addEmployee(e));
+    } catch (error) {
+      
+    }
   }
 }
+const service = new Company();
+service.restoreFromFile("test.data");
+export default service;
